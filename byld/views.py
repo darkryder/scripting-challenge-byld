@@ -16,7 +16,7 @@ import urllib2, urllib
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 import requests
 
-class DemoForm(forms.ModelForm):
+class SignUpForm(forms.ModelForm):
 
 	username = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
 																			   	  'placeholder' : 'Something Creative',
@@ -45,6 +45,18 @@ class DemoForm(forms.ModelForm):
 			raise forms.ValidationError(u'Email addresses must be unique.')
 		return email
 
+class SignInForm(forms.Form):
+
+	username = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
+																			   	  'placeholder' : 'Something Creative',
+																			   	  'autocomplete' : 'off',
+																			   	  'name' : 'user'}))
+
+	password = forms.CharField(required = True, widget = forms.PasswordInput(attrs = {'class' : 'form-control',
+																			   	  	  'placeholder' : 'Something Secure', 
+																			   	   	  'name' : 'pass'}))
+
+
 def home(request):
 	args = {}
 	args.update(csrf(request))
@@ -52,6 +64,8 @@ def home(request):
 	if request.user.is_authenticated():
 		return HttpResponse("k nigga")
 	else:
+		args["form"] = SignUpForm()
+
 		if request.method == "POST":
 			user = authenticate(username = request.POST["user"], password = request.POST["pass"])
 
@@ -71,7 +85,7 @@ def signout(request):
 def register(request):
 	args = {}
 	args.update(csrf(request))
-	args["reg"] = True
+	args["reg"] = False
 
 	if request.user.is_authenticated():
 		return HttpResponseRedirect("/")
@@ -128,7 +142,7 @@ def register(request):
 
 		return HttpResponse("created")
 	else:
-		args['form'] = DemoForm()
+		args['form'] = SignUpForm()
 		return render_to_response("register.html", args)
 
 def challenges(request):

@@ -30,9 +30,9 @@
 
 
 			<form class="form-horizontal templatemo-login-form-2" role="form" action="/register/" method="POST">
+				{% csrf_token %}
 
 				{% if reg %}
-				{% csrf_token %}
 
 				<div class = "row">
 					<h1>Thanks for Signing up, return home to Log In</h1>
