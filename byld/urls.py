@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     url(r'^$', 		  	'byld.views.home',   name = 'home'),
     url(r'^signout/$', 	'byld.views.signout', name = 'signout'),
     url(r'^register/$', 'byld.views.register', name = 'register'),
+    url(r'^challenges/$', 'byld.views.challenges', name = 'challenges'),
 
 )

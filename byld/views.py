@@ -16,7 +16,7 @@ import urllib2, urllib
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 import requests
 
-class DemoForm(forms.Form):
+class DemoForm(forms.ModelForm):
 
 	username = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
 																			   	  'placeholder' : 'Something Creative',
@@ -26,7 +26,24 @@ class DemoForm(forms.Form):
 	password = forms.CharField(required = True, widget = forms.PasswordInput(attrs = {'class' : 'form-control',
 																			   	  	  'placeholder' : 'Something Secure', 
 																			   	   	  'name' : 'pass'}))
+
+	email = forms.EmailField(required = True, widget = forms.EmailInput(attrs = {'class' : 'form-control',
+																			   	 'placeholder' : 'Something to communicate to', 
+																			   	 'autocomplete' : 'off',
+																			   	 'name' : 'email'}))
+
 	captcha = NoReCaptchaField()
+
+	class Meta:
+		model = User
+		fields = ('username', 'password', 'email')
+
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		username = self.cleaned_data.get('username')
+		if email and User.objects.filter(email = email).exclude(username = username).count():
+			raise forms.ValidationError(u'Email addresses must be unique.')
+		return email
 
 def home(request):
 	args = {}
@@ -54,6 +71,7 @@ def signout(request):
 def register(request):
 	args = {}
 	args.update(csrf(request))
+	args["reg"] = True
 
 	if request.user.is_authenticated():
 		return HttpResponseRedirect("/")
@@ -75,7 +93,7 @@ def register(request):
 			if form.is_valid():
 				state = True
 
-			elif len(form.errors) == 1 and 'captcha' in form.errors.keys():
+			elif 'captcha' in form.errors.keys():
 				form.errors.pop('captcha')
 				state = True
 
@@ -86,14 +104,24 @@ def register(request):
 		if state == True:
 
 			if User.objects.filter(username = request.POST["username"]).exists():
-				form.add_error(None, "Username Exists")
-				args['form'] = form
 
+				form.add_error(None, "Team already Exists :(")
+				args['form'] = form
+				return render_to_response("register.html", args)
+
+			elif User.objects.filter(email = request.POST["email"]).exists():
+				
+				form.add_error(None, "Email ID already registered :(")
+				args['form'] = form
 				return render_to_response("register.html", args)
 
 			else:
 				user = User.objects.create_user(username = request.POST["username"],
-												password = request.POST["password"])
+												password = request.POST["password"],
+												email 	 = request.POST["email"])
+
+				args["reg"] = True
+				return render_to_response("register.html", args)
 		else:
 			args['form'] = form
 			return render_to_response("register.html", args)
@@ -102,6 +130,14 @@ def register(request):
 	else:
 		args['form'] = DemoForm()
 		return render_to_response("register.html", args)
+
+def challenges(request):
+	args = {}
+	args.update(csrf(request))
+	args["error"] = "Please log in to continue"
+
+	if request.user.is_authenticated():
+		return HttpResponseRedirect("/", args)
 
 
 

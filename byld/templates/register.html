@@ -7,7 +7,7 @@
 	Form Pack
 	http://www.templatemo.com/preview/templatemo_418_form_pack 
 	-->
-	<title>Register</title>
+	<title>Register | Byld </title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta charset="UTF-8">
@@ -27,8 +27,24 @@
 <body class="templatemo-bg-image-1">
 	<div class="container">
 		<div class="col-md-12">	
+
+
 			<form class="form-horizontal templatemo-login-form-2" role="form" action="/register/" method="POST">
+
+				{% if reg %}
 				{% csrf_token %}
+
+				<div class = "row">
+					<h1>Thanks for Signing up, return home to Log In</h1>
+				</div>
+				<div class = "row">
+					<div class = 'col-md-3'></div>
+					<div class = 'col-md-6'>
+						<center><a href = "/" class = "btn btn-lg btn-warning">Return</a></center>
+					</div>
+				</div>
+
+				{% else %}
 				<div class="row">
 					<div class="col-md-12">
 						<h1>Sign Up</h1>
@@ -55,7 +71,7 @@
 
 						<div class="form-group">
 						  <div class="col-md-12">				  	
-							<label for="username" class="control-label">Username</label>
+							<label for="username" class="control-label">Team Name</label>
 							<div class="templatemo-input-icon-container">
 								<i class="fa fa-user"></i>
 								{{ form.username }}
@@ -71,6 +87,15 @@
 							</div>
 						  </div>
 						</div>
+						<div class="form-group">
+						  <div class="col-md-12">
+							<label for="password" class="control-label">Email</label>
+							<div class="templatemo-input-icon-container">
+								<i class="fa fa-lock"></i>
+								{{ form.email }}
+							</div>
+						  </div>
+						</div>
 						<div class = "form-group">
 							<center>
 								{{ form.captcha }}
@@ -83,8 +108,10 @@
 						</div>
 					</div>
    
-				</div>				 	
-			  </form>			  			  
+				</div>	
+			  	{% endif %}
+			  </form>	
+
 		</div>
 	</div>
 </body>
