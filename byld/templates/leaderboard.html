@@ -7,7 +7,7 @@
 	Form Pack
 	http://www.templatemo.com/preview/templatemo_418_form_pack 
 	-->
-	<title>Register | Byld </title>
+	<title>Leaderboard | Byld </title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta charset="UTF-8">
@@ -31,12 +31,29 @@
 
 			<form class="form-horizontal templatemo-login-form-2" role="form" action="/register/" method="POST">
 				{% csrf_token %}
+				<br><br>
+				  <table class="table ">
+					<thead>
+					  <tr>
+						<th>Teamname</th>
+						<th>Email</th>
+						<th>Score</th>
+					  </tr>
+					</thead>
+					<tbody>
 
 				{% for team in teams %}
-					{{ team }}
-					{{ team.team.username }}
-					{{ team.score }}
+
+					  <tr>
+						<td>{{ team.team.username }}</td>
+						<td>{{ team.team.email }}</td>
+						<td>{{ team.score }} </td>
+					  </tr>
+
 				{% endfor %}
+
+					</tbody>
+				  </table>
 			  </form>	
 
 		</div>

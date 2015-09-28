@@ -168,6 +168,3 @@ def leaderboard(request):
 
 
 
-
-
-
