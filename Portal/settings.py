@@ -13,8 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_DIR = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.dirname(SETTINGS_DIR))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -23,7 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@0qgp7@u^m5f(72lc31jri#6x28+825(cx7i)###joj4$k09u6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'byld',
+    'nocaptcha_recaptcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Portal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -81,13 +85,12 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -95,8 +98,26 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ( 
+    (os.path.join(PROJECT_ROOT, 'static/')),
+)
+
+TEMPLATE_DIRS = ( 
+    os.path.join(PROJECT_ROOT, 'templates/'),
+    os.path.join(PROJECT_ROOT, '/byld/templates/'),
+)
+
+STATICFILES_FINDERS = {
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+}
+
+NORECAPTCHA_SITE_KEY = "6LckqA0TAAAAAAEIpPYa3wDach767Rhgn56SvRQa"
+NORECAPTCHA_SECRET_KEY = "6LckqA0TAAAAAHi5BoXhsuItBtttojWOstznsyMX"
+

@@ -1,0 +1,9 @@
+<form method = "POST" action = "/">
+
+	{% csrf_token %}
+
+	<input type = "name" name = "user" placeholder = "Username" />
+	<input type = "password" name = "pass" placeholder = "Password" />
+
+	<button type = "submit" >Log In</button>
+</form>
