@@ -28,13 +28,18 @@
 		<div class="col-md-12">	
 
 
-			<form class="form-horizontal templatemo-login-form-2" role="form" action="/register/" method="POST">
+			<form class="form-horizontal templatemo-login-form-2" role="form" action="/" method="POST">
 
 				{% csrf_token %}
 
 				<div class="row">
 					<div class="col-md-12">
-						<h1>Sign Up</h1>
+						<h1>Sign In</h1>
+					</div>
+				</div>
+				<div>
+					<div class="col-md-12">
+						<center><h3>{{ error }}</h3></center>
 					</div>
 				</div>
 				<div class="row">

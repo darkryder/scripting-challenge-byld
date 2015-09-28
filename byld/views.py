@@ -38,22 +38,15 @@ class SignUpForm(forms.ModelForm):
 		model = User
 		fields = ('username', 'password', 'email')
 
-	def clean_email(self):
-		email = self.cleaned_data.get('email')
-		username = self.cleaned_data.get('username')
-		if email and User.objects.filter(email = email).exclude(username = username).count():
-			raise forms.ValidationError(u'Email addresses must be unique.')
-		return email
-
 class SignInForm(forms.Form):
 
 	username = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
-																			   	  'placeholder' : 'Something Creative',
+																			   	  'placeholder' : 'Your identity',
 																			   	  'autocomplete' : 'off',
 																			   	  'name' : 'user'}))
 
 	password = forms.CharField(required = True, widget = forms.PasswordInput(attrs = {'class' : 'form-control',
-																			   	  	  'placeholder' : 'Something Secure', 
+																			   	  	  'placeholder' : 'Your Something Secure', 
 																			   	   	  'name' : 'pass'}))
 
 
@@ -62,20 +55,21 @@ def home(request):
 	args.update(csrf(request))
 
 	if request.user.is_authenticated():
-		return HttpResponse("k nigga")
+		return HttpResponseRedirect("/challenges")
 	else:
-		args["form"] = SignUpForm()
+		args["form"] = SignInForm()
 
 		if request.method == "POST":
-			user = authenticate(username = request.POST["user"], password = request.POST["pass"])
+			user = authenticate(username = request.POST["username"], password = request.POST["password"])
 
 			if user is not None:
 				if user.is_active:
 					login(request, user)
+				return HttpResponseRedirect("/challenges")
 
-				return HttpResponse("ok")
 			else:
-				return HttpResponse("bad pass")
+				args["error"] = "Wrong Team Name / Password"
+
 		return render_to_response("welcome.html", args)
 
 def signout(request):
@@ -92,7 +86,7 @@ def register(request):
 
 	if request.method == "POST":
 
-		form = DemoForm(request.POST)
+		form = SignUpForm(request.POST)
 
 		captach_response = requests.post("https://www.google.com/recaptcha/api/siteverify",
 								 		 data={'secret': "6LckqA0TAAAAAHi5BoXhsuItBtttojWOstznsyMX",
@@ -151,6 +145,8 @@ def challenges(request):
 	args["error"] = "Please log in to continue"
 
 	if request.user.is_authenticated():
+		return HttpResponse("challenges")
+	else:
 		return HttpResponseRedirect("/", args)
 
 
