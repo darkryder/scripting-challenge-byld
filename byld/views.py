@@ -60,15 +60,20 @@ def home(request):
 		args["form"] = SignInForm()
 
 		if request.method == "POST":
-			user = authenticate(username = request.POST["username"], password = request.POST["password"])
+			form = SignInForm(request.POST)
+			args['form'] = form
 
-			if user is not None:
-				if user.is_active:
-					login(request, user)
-				return HttpResponseRedirect("/challenges")
+			if form.is_valid():
+				user = authenticate(username = request.POST["username"], password = request.POST["password"])
 
-			else:
-				args["error"] = "Wrong Team Name / Password"
+				if user is not None:
+					if user.is_active:
+						login(request, user)
+					return HttpResponseRedirect("/challenges")
+
+				else:
+					form.add_error(None, "Wrong Team name / Password")
+					
 
 		return render_to_response("welcome.html", args)
 
@@ -128,6 +133,9 @@ def register(request):
 												password = request.POST["password"],
 												email 	 = request.POST["email"])
 
+				newTeam = Team(team = user)
+				newTeam.save()
+
 				args["reg"] = True
 				return render_to_response("register.html", args)
 		else:
@@ -148,6 +156,16 @@ def challenges(request):
 		return HttpResponse("challenges")
 	else:
 		return HttpResponseRedirect("/", args)
+
+def leaderboard(request):
+	args = {}
+	args.update(csrf(request))
+
+	args['teams'] = Team.objects.order_by('-score')
+	print Team.objects
+	print args['teams']
+	return render_to_response("leaderboard.html", args)
+
 
 
 
