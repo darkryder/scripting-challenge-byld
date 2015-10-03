@@ -10,11 +10,14 @@ from django.contrib.auth.models import User
 from byld.models import *
 
 from django import forms
+from nocaptcha_recaptcha.fields import NoReCaptchaField
+
+from Portal.settings import GAMEDATE, gameURLS, gameNames, gameSolutions
 
 import json
 import urllib2, urllib
-from nocaptcha_recaptcha.fields import NoReCaptchaField
 import requests
+import datetime
 
 class SignUpForm(forms.ModelForm):
 
@@ -48,7 +51,12 @@ class SignInForm(forms.Form):
 	password = forms.CharField(required = True, widget = forms.PasswordInput(attrs = {'class' : 'form-control',
 																			   	  	  'placeholder' : 'Your Something Secure', 
 																			   	   	  'name' : 'pass'}))
+class HashForm(forms.Form):
 
+	hashField = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
+																			   	  'placeholder' : 'hash',
+																			   	  'autocomplete' : 'off',
+																			   	  'name' : 'hash'}))
 
 def home(request):
 	args = {}
@@ -136,6 +144,9 @@ def register(request):
 				newTeam = Team(team = user)
 				newTeam.save()
 
+				newGameStatus = GameStatus(team = newTeam)
+				newGameStatus.save()
+
 				args["reg"] = True
 				return render_to_response("register.html", args)
 		else:
@@ -147,16 +158,6 @@ def register(request):
 		args['form'] = SignUpForm()
 		return render_to_response("register.html", args)
 
-def challenges(request):
-	args = {}
-	args.update(csrf(request))
-	args["error"] = "Please log in to continue"
-
-	if request.user.is_authenticated():
-		return HttpResponse("challenges")
-	else:
-		return HttpResponseRedirect("/", args)
-
 def leaderboard(request):
 	args = {}
 	args.update(csrf(request))
@@ -165,6 +166,110 @@ def leaderboard(request):
 	print Team.objects
 	print args['teams']
 	return render_to_response("leaderboard.html", args)
+
+def updateScore(i):
+	fileName = "game" + str(i) + ".txt"
+	
+	f = open(fileName, 'r')
+	score = float(f.readline())
+	f.close()
+
+	f = open(fileName, 'w')
+	f.write(str(score * 0.9))
+	f.close()
+
+	return score
+
+def challenges(request):
+	args = {}
+	args.update(csrf(request))
+	args["error"] = "Please log in to continue"
+
+	if request.user.is_authenticated():
+		form = HashForm()
+		team = Team.objects.get(team = request.user)
+		gameStatus = GameStatus.objects.get(team = team)
+
+		args["gameDate"] = GAMEDATE
+
+		args["gameOn"] = False
+
+		if GAMEDATE < datetime.datetime.now():
+			args["gameOn"] = True
+
+		args["gameURL1"] = gameURLS[0]
+		args["gameURL2"] = gameURLS[1]
+		args["gameURL3"] = gameURLS[2]
+
+		args["gameName1"] = gameNames[0]
+		args["gameName2"] = gameNames[1]
+		args["gameName3"] = gameNames[2]
+
+		if request.method == "POST":
+			request.POST._mutable = True	# hacks for life
+
+			form = HashForm(request.POST)
+
+			if form.is_valid():
+				hashSubmitted = form.cleaned_data["hashField"]
+				print hashSubmitted
+
+				if hashSubmitted == gameSolutions[0]:
+
+					if gameStatus.gameOne == False:
+						form.add_error("hashField", "Congrats! " + gameNames[0] + " Solved")
+						form.data["hashField"] = ""
+						
+						team.score += updateScore(1)
+						team.save()
+
+						gameStatus.gameOne = True
+						gameStatus.save()
+
+					else:
+						form.add_error("hashField", gameNames[0] + " Already Solved")
+					
+				elif hashSubmitted == gameSolutions[1]:
+
+					if gameStatus.gameTwo == False:
+						form.add_error("hashField", "Congrats! " + gameNames[1] + " Solved")
+						form.data["hashField"] = ""
+						
+						team.score += updateScore(2)
+						team.save()
+
+						gameStatus.gameTwo = True
+						gameStatus.save()
+
+					else:
+						form.add_error("hashField", gameNames[1] + " Already Solved")
+
+				elif hashSubmitted == gameSolutions[2]:
+
+					if gameStatus.gameThree == False:
+
+						form.add_error("hashField", "Congrats! " + gameNames[2] + " Solved")
+						form.data["hashField"] = ""
+
+						team.score += updateScore(3)
+						team.save()
+
+						gameStatus.gameThree = True
+						gameStatus.save()
+
+					else:
+						form.add_error("hashField", gameNames[2] + " Already Solved")
+
+				else:
+					form.add_error("hashField", "Hash submitted is invalid")
+
+		args["form"] = form
+		args["team"] = Team.objects.get(team = request.user)
+		return render_to_response("challenges.html", args)
+	else:
+		return HttpResponseRedirect("/", args)
+
+
 
 
 

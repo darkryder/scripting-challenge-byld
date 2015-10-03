@@ -10,8 +10,25 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
+
+"""
+
+    Variables for the challenge
+
+"""
+
+GAMEDATE = datetime.datetime(2014, 10, 5, 18, 15, 0)
+
+gameURLS = ["", "", ""]
+
+gameNames = ["Challenge I", "Challenge II", "Challenge III"]
+
+gameSolutions = ["5e47329ec9304d6c400c8bea40cd287a", "365421d54980b4c3ce73be58de32b06d", "2f0e92d4f316a41c1aa59273b4f3eb4c"]
+
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_DIR = os.path.dirname(__file__)

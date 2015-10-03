@@ -38,12 +38,13 @@
 		<div class="col-md-12">	
 
 
-			<form class="form-horizontal templatemo-login-form-2" role="form" action="/register/" method="POST">
+			<form class="form-horizontal templatemo-login-form-2" role="form" onsubmit="return false;">
 				{% csrf_token %}
 				<br><br>
 				  <table class="table ">
 					<thead>
 					  <tr>
+					  	<th>Rank</th>
 						<th>Teamname</th>
 						<th>Email</th>
 						<th>Score</th>
@@ -54,6 +55,7 @@
 				{% for team in teams %}
 
 					  <tr>
+					  	<td>{{ forloop.counter }}</td>
 						<td>{{ team.team.username }}</td>
 						<td>{{ team.team.email }}</td>
 						<td>{{ team.score }} </td>

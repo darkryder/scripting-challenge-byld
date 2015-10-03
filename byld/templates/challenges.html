@@ -1,0 +1,160 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<head>
+	<!-- templatemo 418 form pack -->
+	<!-- 
+	Form Pack
+	http://www.templatemo.com/preview/templatemo_418_form_pack 
+	-->
+	<title>Challenges | Byld </title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	
+	<link href = "{% static 'css/bootstrap.min.css' %}" 		rel = "stylesheet" type = "text/css">
+	<link href = "{% static 'css/bootstrap-theme.min.css' %}" 	rel = "stylesheet" type = "text/css">
+	<link href = "{% static 'css/templatemo_style.css' %}" 		rel = "stylesheet" type = "text/css">
+	<link href = "{% static 'css/bootstrap-social.css' %}" 		rel = "stylesheet" type = "text/css">
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-68394396-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+</head>
+
+<body class="templatemo-bg-image-1">
+
+	{% if gameOn %}
+	<div class="container">
+		<br><br>
+
+		<div class = "row">
+			<div class = "col-md-2"></div>
+			<div class="col-md-4">	
+				
+				<form class="form-horizontal templatemo-login-form-2" role="form" onsubmit="return false;">
+					{% csrf_token %}
+					<br>
+					<h3><center>
+						Hi <strong>{{ team.team.username }}, </strong><br><br>
+						Your score : {{ team.score }} <br><br>
+						<a href="/leaderboard">leaderboard</a>
+					</center></h3>
+					<br>
+				</form>	
+			</div>
+			<div class = "col-md-4">
+				<form class="form-horizontal templatemo-login-form-2" method = "POST" action = "/challenges/">
+					{% csrf_token %}
+					<br>
+					<div class = "row">
+						<center><h3>Found a hash? Submit below</h3></center>
+					</div>
+					<br>
+					{% if form.errors %}
+						{% for field in form %}
+							{% for error in field.errors %}
+								<div class="alert alert-error">
+									<strong>{{ field.label }} : {{ error|escape }}</strong>
+								</div>
+							{% endfor %}
+						{% endfor %}
+
+						{% for error in form.non_field_errors %}
+							<div class="alert alert-error">
+								<strong>{{ error|escape }}</strong>
+							</div>
+						{% endfor %}
+					{% endif %}
+					<div class = "row">
+						<div class = "col-md-8">
+							<div class="form-group">
+								<div class="templatemo-input-icon-container">
+									<i class="fa fa-wrench"></i>
+									{{ form.hashField }}
+								</div>															
+							</div>
+						</div>
+						<div class = "col-md-4">
+							<button type = "submit" class = "btn btn-warning btn-md">Submit</button>
+						</div>
+
+					</div>
+				</form>	
+			</div>
+		</div>
+
+		<br><br>
+
+		<div class = "row">
+		<div class="col-md-4">	
+			
+			<form class="form-horizontal templatemo-login-form-2" role="form" onsubmit="return false;">
+				{% csrf_token %}
+				<br><br>
+				<h3><center><a href = "{{ gameURL1 }}">{{ gameName1 }}</a></center></h3>
+				<br>
+			</form>	
+
+		</div>
+		<div class="col-md-4">	
+			
+			<form class="form-horizontal templatemo-login-form-2" role="form" <form onsubmit="return false;">
+				{% csrf_token %}
+				<br><br>
+				<h3><center><a href = "{{ gameURL2 }}">{{ gameName2 }}</a></center></h3>
+				<br>
+			</form>	
+
+		</div>
+		<div class="col-md-4">	
+			
+			<form class="form-horizontal templatemo-login-form-2" role="form" <form onsubmit="return false;">
+				{% csrf_token %}
+				<br><br>
+				<h3><center><a href = "{{ gameURL3 }}">{{ gameName3 }}</a></center></h3>
+				<br>
+			</form>
+		</div>
+		</div>
+	</div>
+	{% else %}
+
+	<div class="container">
+		<br><br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
+
+		<div class="col-md-12">	
+			
+			<form class="form-horizontal templatemo-login-form-2" role="form" onsubmit="return false;">
+				{% csrf_token %}
+				<br><br>
+				<h3>
+					<center>
+						Challenge hasn't begun yet. <br><br>
+						Please come back at {{ gameDate.hour }}:{{ gameDate.minute }} on {{ gameDate.date }}!!
+					</center>
+				</h3>
+				<br>
+
+			</form>	
+
+		</div>
+	</div>
+
+
+	{% endif %}
+</body>
+</html>
