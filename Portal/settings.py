@@ -19,7 +19,7 @@ import datetime
 
 """
 
-GAMEDATE = datetime.datetime(2014, 10, 5, 18, 15, 0)
+GAMEDATE = datetime.datetime(2015, 10, 5, 18, 15, 0)
 
 gameURLS = ["", "", ""]
 
