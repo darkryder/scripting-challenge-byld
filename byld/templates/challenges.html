@@ -34,6 +34,23 @@
 </head>
 
 <body class="templatemo-bg-image-1">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Byld Scripting Challenge</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li ><a id = "time">Time Left : </a></li>
+					<li><a href="/leaderboard">Leaderboard</a></li>
+					<li><a href="/signout">Log out<span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<br><br><br>
 
 	{% if gameOn %}
 	<div class="container">
@@ -48,8 +65,7 @@
 					<br>
 					<h3><center>
 						Hi <strong>{{ team.team.username }}, </strong><br><br>
-						Your score : {{ team.score }} <br><br>
-						<a href="/leaderboard">leaderboard</a>
+						Your score : {{ team.score }}
 					</center></h3>
 					<br>
 				</form>	
@@ -128,6 +144,7 @@
 			</form>
 		</div>
 		</div>
+
 	</div>
 	{% else %}
 
@@ -154,7 +171,33 @@
 		</div>
 	</div>
 
-
 	{% endif %}
 </body>
+
+<script type="text/javascript">
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = "Time Left : " + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var timeLeft = {{ timeLeft }},
+        display = document.querySelector('#time');
+    startTimer(timeLeft, display);
+};
+
+</script>
 </html>

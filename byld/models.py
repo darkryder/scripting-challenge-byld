@@ -6,6 +6,9 @@ class Team(models.Model):
 	team = models.ForeignKey(User)
 	score = models.FloatField(default = 0.0)
 
+	def __unicode__(self):
+		return str(self.team.username)
+
 class GameStatus(models.Model):
 
 	team = models.ForeignKey(Team)
@@ -13,3 +16,6 @@ class GameStatus(models.Model):
 	gameOne = models.BooleanField(default = False)
 	gameTwo = models.BooleanField(default = False)
 	gameThree = models.BooleanField(default = False)
+
+	def __unicode__(self):
+		return str(self.team.team.username)
