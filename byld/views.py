@@ -12,7 +12,7 @@ from byld.models import *
 from django import forms
 from nocaptcha_recaptcha.fields import NoReCaptchaField
 
-from Portal.settings import GAMEDATE, GAMEEND, gameURLS, gameNames, gameSolutions
+from Portal.settings import GAMEDATE, GAMEEND, GAMELENGTH, gameURLS, gameNames, gameSolutions
 
 import json
 import urllib2, urllib
@@ -194,7 +194,7 @@ def challenges(request):
 
 		args["gameOn"] = False
 
-		if GAMEDATE < datetime.datetime.now():
+		if GAMEDATE < datetime.datetime.now() and (datetime.datetime.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
 			args["gameOn"] = True
 
 		args["timeLeft"] = (GAMEEND - datetime.datetime.now()).total_seconds()
@@ -214,7 +214,6 @@ def challenges(request):
 
 			if form.is_valid():
 				hashSubmitted = form.cleaned_data["hashField"]
-				print hashSubmitted
 
 				if hashSubmitted == gameSolutions[0]:
 
