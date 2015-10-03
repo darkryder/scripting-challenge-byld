@@ -21,6 +21,7 @@ import datetime
 
 GAMEDATE = datetime.datetime(2015, 10, 4, 2, 0, 0)
 GAMEEND = datetime.datetime(2015, 10, 4, 4, 0, 0)
+DEVMODE = True
 
 gameURLS = ["", "", ""]
 
@@ -43,10 +44,10 @@ SECRET_KEY = '@0qgp7@u^m5f(72lc31jri#6x28+825(cx7i)###joj4$k09u6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.byld.iiitd.edu.in", "byld.iiitd.edu.in", "128.199.214.230", "127.0.0.1"]
 
 
 # Application definition
