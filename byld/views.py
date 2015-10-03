@@ -87,7 +87,7 @@ def home(request):
 
 def signout(request):
 	logout(request)
-	return HttpResponse("logged out")
+	return HttpResponseRedirect("/")
 
 def register(request):
 	args = {}
