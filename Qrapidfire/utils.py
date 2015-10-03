@@ -1,7 +1,7 @@
+from __future__ import division
+
 __author__ = 'darkryder (sambhav13085@iiitd.ac.in)'
 
-
-from __future__ import division
 from math import sqrt, ceil
 from random import shuffle, choice
 
