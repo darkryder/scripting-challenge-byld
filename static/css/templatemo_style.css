@@ -83,12 +83,50 @@ h2 {
 .templatemo-bg-gray { background-color: #eee; }
 .templatemo-bg-gray h1 { color: rgb(74, 164, 180); }
 .templatemo-bg-image-1 {
-	background-color: rgb(60,60,60);
-	background-image: url(../images/iiitd.jpg);	
+
 }
+
+.blur {
+
+	background-image: url(../images/1.jpg);	
+    background-size:cover;
+
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.blur2 {
+
+	background-image: url(../images/iiitd.jpg);	
+    background-size:cover;
+
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
 .templatemo-bg-image-2 {
 	background-color: rgb(70, 90, 40);
-	background-image: url(../images/iiitd.jpg);
+	background-image: url(../images/1.jpg);
+
+	-webkit-filter: blur(5px);
+  	-moz-filter: blur(5px);
+  	-o-filter: blur(5px);
+  	-ms-filter: blur(5px);
+  	filter: blur(5px);
 }
 .templatemo-bg-image-1, .templatemo-bg-image-2 {
 	background-repeat: no-repeat;
