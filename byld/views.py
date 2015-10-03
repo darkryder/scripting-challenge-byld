@@ -102,7 +102,7 @@ def register(request):
 		form = SignUpForm(request.POST)
 
 		captach_response = requests.post("https://www.google.com/recaptcha/api/siteverify",
-								 		 data={'secret': "6LckqA0TAAAAAHi5BoXhsuItBtttojWOstznsyMX",
+								 		 data={'secret': "6LefEA4TAAAAAE7P3X3dD8UhCzBNobYPGZ-Cozw3",
 									   		   'response': request.POST["g-recaptcha-response"]})
 
 		verdict = json.loads(captach_response.text)['success']
