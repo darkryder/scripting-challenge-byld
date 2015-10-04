@@ -41,7 +41,7 @@ SECRET_KEY = '@0qgp7@u^m5f(72lc31jri#6x28+825(cx7i)###joj4$k09u6'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ["www.byld.iiitd.edu.in", "byld.iiitd.edu.in", "128.199.214.230", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["www.byld.iiitd.edu.in", "byld.iiitd.edu.in", "128.199.214.230", "127.0.0.1", "localhost", 'hackiiitd.in']
 
 # Application definition
 
