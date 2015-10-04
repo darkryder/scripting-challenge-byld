@@ -68,6 +68,7 @@ class ATM_Transactioner(SS.BaseRequestHandler):
 
         self.request.close()
 
+
 class ATMServer(SS.ThreadingMixIn, SS.TCPServer):
     """Handle requests in a separate thread."""
 ATMServer.allow_reuse_address = True
@@ -78,8 +79,6 @@ def run():
     ATMServer(('0.0.0.0', PORT), ATM_Transactioner).serve_forever()
 
 
-# Question statement
-# To be written.
 PROBLEM_STATEMENT ="""
 
 After a lot of beating, the scrum programmer, Phlegm,
@@ -95,11 +94,11 @@ on the keyboard, you see something miraculous happening.
 Money starts pouring out of the ATM, disproportionate to
 that being deducted from your account.
 
-Can you too exploit this?
+Can you exploit this too?
 
 
 
-withdraw.py
+ - withdraw.py
 
 def main():
 

@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>Ruuunnnnnn.... | Byld</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><b>ESYA'15</b></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://www.facebook.com/events/952798898105580/"><img src="{% static "img/facebook.png" %}" style="width:40px; height:40px; margin-top:10px;"/></a></li>
+            <li><a href="https://twitter.com/esyaiiitd"><img src="{% static "img/twitter.png" %}" style="width:40px; height:40px; margin-top:10px;"/></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+    <div id="headerwrap">
+        <div class="container">
+            <div class="row">
+            <center>
+            <img src="{% static "img/hack.jpg" %}"/>
+                <div>
+        <h2>Just testing your patience as a hacker :)</h2>
+          <form id='form' name = "thisform" method='POST' action="/runforestrun/{{next}}">
+              <input value = "next url" id = "but"  style="position: absolute;" name = "subbut" type = "submit" class = "btn btn-lg btn-success"/>
+          </form>
+
+
+                </div><!-- /col-lg-6 -->
+            </center>
+
+            </div><!-- /row -->
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->
+</div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script>
+        var button = document.getElementById("but");
+        var browserWidth = window.innerWidth || document.documentElement.clientWidth;
+        var browserHeight = window.innerHeight || document.documentElement.clientHeight;
+        var buttonWidth = button.offsetWidth;
+        var buttonHeight = button.offsetHeight;
+
+        function move() {
+            button.style.left = Math.floor(Math.random()*(browserWidth-buttonWidth)) + "px";
+            button.style.top = Math.floor(Math.random()*(browserHeight-buttonHeight)) + "px";
+        }
+
+        window.onload = move();
+    </script>
+
+
+
+  </body>
+</html>
