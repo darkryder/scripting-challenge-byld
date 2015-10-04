@@ -67,6 +67,7 @@
 					  	<th>Rank</th>
 						<th>Teamname</th>
 						<th>Email</th>
+                        <th>Last Answer Time</th>
 						<th>Score</th>
 					  </tr>
 					</thead>
@@ -78,6 +79,7 @@
 					  	<td>{{ forloop.counter }}</td>
 						<td>{{ team.team.username }}</td>
 						<td>{{ team.team.email }}</td>
+                        <td>{{ team.last_question_solved }}</td>
 						<td>{{ team.score }} </td>
 					  </tr>
 
