@@ -19,15 +19,9 @@ import datetime
 
 """
 
-GAMEDATE = datetime.datetime(2015, 10, 4, 2, 0, 0)
-GAMEEND = datetime.datetime(2015, 10, 4, 4, 0, 0)
+GAMEDATE = datetime.datetime(2013, 10, 4, 2, 0, 0)
+GAMEEND = datetime.datetime(2016, 10, 4, 4, 0, 0)
 GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
-
-gameURLS = ["", "", ""]
-
-gameNames = ["Challenge I", "Challenge II", "Challenge III"]
-
-gameSolutions = ["5e47329ec9304d6c400c8bea40cd287a", "365421d54980b4c3ce73be58de32b06d", "2f0e92d4f316a41c1aa59273b4f3eb4c"]
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,8 +38,8 @@ SECRET_KEY = '@0qgp7@u^m5f(72lc31jri#6x28+825(cx7i)###joj4$k09u6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
-TEMPLATE_DEBUG = True
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ["www.byld.iiitd.edu.in", "byld.iiitd.edu.in", "128.199.214.230", "127.0.0.1", "localhost"]
 
@@ -122,11 +116,11 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ( 
+STATICFILES_DIRS = (
     (os.path.join(PROJECT_ROOT, 'static/')),
 )
 
-TEMPLATE_DIRS = ( 
+TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates/'),
     os.path.join(PROJECT_ROOT, '/byld/templates/'),
 )
