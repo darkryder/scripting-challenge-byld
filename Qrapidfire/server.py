@@ -72,7 +72,7 @@ for _ in xrange(1, 25):
     levels_to_questions[1].append(q)
 
     temp_args = lambda l, u, count: [randint(l, u) for _ in xrange(count)]
-    q = MathEquationQuestion(temp_args(10, 1000, 8))
+    q = MathEquationQuestion(temp_args(10, 1000, 12))
     print "Created Question", q
     levels_to_questions[2].append(q)
 

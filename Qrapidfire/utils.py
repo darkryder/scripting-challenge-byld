@@ -23,7 +23,7 @@ def number_of_factors(number):
     return count
 
 def math_equation_QA_generator(*args):
-    _ARGS_LENGTH = 8
+    _ARGS_LENGTH = 12
     args = args[0]
     assert len(args) == _ARGS_LENGTH
     assert 0 not in args
