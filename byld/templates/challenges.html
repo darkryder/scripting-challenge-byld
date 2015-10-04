@@ -118,7 +118,8 @@
 		<div class = "row">
 
             {% for question in all_questions %}
-        		<div class="col-md-4">
+        		{% if not question.hidden %}
+                <div class="col-md-4">
         			<form class="form-horizontal templatemo-login-form-2" role="form" <form onsubmit="return false;">
         				{% csrf_token %}
         				<br>
@@ -130,6 +131,7 @@
                         <p>{{ question.description }}</p>
         			</form>
                 </div>
+                {% endif %}
             {% empty %}
                 <div class="col-md-12">
                     <form class="form-horizontal templatemo-login-form-2" role="form" <form onsubmit="return false;">

@@ -14,8 +14,9 @@ class Team(models.Model):
 class Question(models.Model):
     description = models.CharField(max_length=1024)
     points = models.IntegerField(default=0, max_length=1000)
-    solved_by = models.ManyToManyField(Team, related_name='solved_questions')
+    solved_by = models.ManyToManyField(Team, related_name='solved_questions', null=True, blank=True)
     title = models.CharField(max_length=128, default="")
+    hidden = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s: [%s]" % (str(self.description),
