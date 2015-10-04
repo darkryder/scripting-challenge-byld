@@ -20,6 +20,8 @@ class Team(models.Model):
 	score = models.IntegerField(default = 0)
 	last_question_solved = models.DateTimeField(default=timezone.now)
 	token = models.CharField(max_length=32, default=make_auth)
+	ATM_ongoing = models.BooleanField(default=False)
+	ATM_balance = models.IntegerField(default=10**8)
 
 	def __unicode__(self):
 		return str(self.team.username)
