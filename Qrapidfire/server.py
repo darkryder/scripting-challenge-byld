@@ -16,7 +16,6 @@ __author__ = 'darkryder (sambhav13085@iiitd.ac.in)'
 # Do you love Byld? [yes]
 
 import SocketServer as SS
-from threading import Thread
 from time import time as now
 from random import choice, randint
 
