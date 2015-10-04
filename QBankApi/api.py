@@ -80,3 +80,50 @@ def run():
 
 # Question statement
 # To be written.
+PROBLEM_STATEMENT ="""
+
+After a lot of beating, the scrum programmer, Phlegm,
+finally told you the basic pseudocode of the method
+that runs when you withdraw money from your account.
+
+Eyes gleaming, your friend, Lolum, looks at it greedily,
+hungrily. You can see his shoulders getting tense,
+brow furrowed, reading through it, trying to find
+something exploitable. As you keep an eye out on Phlegm,
+Lolum suddenly roars with laughter, and with his hands flying
+on the keyboard, you see something miraculous happening.
+Money starts pouring out of the ATM, disproportionate to
+that being deducted from your account.
+
+Can you too exploit this?
+
+
+
+withdraw.py
+
+def main():
+
+    ## -- SNIP -- ##
+
+    in = read().strip().split(" ")
+    assert len(in) == 3
+    assert (in[0] == "WITHDRAW")
+
+    _, key, amount = in
+
+    assert isInt(in[2])
+
+    account = getAccount(key)
+    account.amount -= amount
+
+    if not BCryptHashVerify(account, key):
+        account += amount
+        return send_message_to_atm(ALERT_INVALID)
+
+    else:
+        account.save() # commit to db
+        return send_message_to_atm(GIVE_MONEY, amount)
+
+    ## -- SNIP -- ##
+
+"""
