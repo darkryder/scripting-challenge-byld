@@ -142,4 +142,5 @@ class QuizMaster(SS.BaseRequestHandler):
 class ThreadedQuizMaster(SS.ThreadingMixIn, SS.TCPServer):
     pass
 
+ThreadedQuizMaster.allow_reuse_address = True
 ThreadedQuizMaster(('0.0.0.0', PORT), QuizMaster).serve_forever()
