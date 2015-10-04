@@ -238,7 +238,7 @@ def challenges(request):
 	else:
 		return HttpResponseRedirect("/", args)
 
-
-
-
-
+def secret_question(request):
+    if GAMEDATE < datetime.datetime.now() and (datetime.datetime.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
+        return render(request, "secret_question.html")
+    else: return redirect('/')
