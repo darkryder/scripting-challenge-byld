@@ -23,10 +23,6 @@ import datetime
 
 timezone.localtime(timezone.now())
 
-GAMEDATE = CompetetionTimeConfiguration.objects.get().GAMEDATE
-GAMEEND = CompetetionTimeConfiguration.objects.get().GAMEEND
-GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
-
 class SignUpForm(forms.ModelForm):
 
 	username = forms.CharField(required = True, widget = forms.TextInput(attrs = {'class' : 'form-control',
@@ -194,7 +190,10 @@ def updateScore(i):
 	return score
 
 def challenges(request):
-	print timezone.now()
+	GAMEDATE = CompetetionTimeConfiguration.objects.get().GAMEDATE
+	GAMEEND = CompetetionTimeConfiguration.objects.get().GAMEEND
+	GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
+
 	args = {}
 	args.update(csrf(request))
 	args["error"] = "Please log in to continue"
@@ -206,6 +205,7 @@ def challenges(request):
 		args["gameDate"] = timezone.localtime(GAMEDATE)
 
 		args["gameOn"] = False
+		print (timezone.now() - GAMEDATE).total_seconds()
 
 		if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
 			args["gameOn"] = True
@@ -245,7 +245,13 @@ def challenges(request):
 	else:
 		return HttpResponseRedirect("/", args)
 
+
 def secret_question(request):
-    if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
-        return render(request, "secret_question.html")
-    else: return redirect('/')
+	GAMEDATE = CompetetionTimeConfiguration.objects.get().GAMEDATE
+	GAMEEND = CompetetionTimeConfiguration.objects.get().GAMEEND
+	GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
+
+	if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
+		return render(request, "secret_question.html")
+	else:
+		return redirect('/')
