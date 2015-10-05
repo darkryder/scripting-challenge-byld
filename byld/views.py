@@ -239,7 +239,6 @@ def challenges(request):
 						form.add_error("",
 							"Congrats! Question solved !. %d points added" % question.points)
 
-
 		args["form"] = form
 		args["team"] = Team.objects.get(team = request.user)
 		args['all_questions'] = Question.objects.all()
