@@ -117,7 +117,7 @@ def register(request):
 
 		state = False
 
-		if verdict == True or verdict == False:
+		if verdict == True:
 
 			if form.is_valid():
 				state = True

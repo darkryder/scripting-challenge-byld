@@ -100,7 +100,7 @@ Server up on port %d
 """ % PORT
 
 class QuizMaster(SS.BaseRequestHandler):
-    MAX_UPPER_TIME = 5 # seconds
+    MAX_UPPER_TIME = 2 # seconds
     FLAG = "8b433670258f79578f9a4e5ea388b007"
     def handle(self):
         current_level = 1
