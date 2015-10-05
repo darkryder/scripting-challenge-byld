@@ -145,8 +145,32 @@
 		</div>
 
 	</div>
-	{% else %}
+	{% elif gameOver %}
 
+	<div class="container">
+		<br><br><br><br>
+		<br><br><br><br>
+		<br><br><br><br>
+
+		<div class="col-md-12">
+
+			<form class="form-horizontal templatemo-login-form-2" role="form" onsubmit="return false;">
+				{% csrf_token %}
+				<br><br>
+				<h3>
+					<center>
+						Challenge is over <br><br>
+						Hope you had a great time!
+					</center>
+				</h3>
+				<br>
+
+			</form>
+
+		</div>
+	</div>
+
+	{% else %}
 	<div class="container">
 		<br><br><br><br>
 		<br><br><br><br>

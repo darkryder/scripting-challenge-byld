@@ -205,10 +205,12 @@ def challenges(request):
 		args["gameDate"] = timezone.localtime(GAMEDATE)
 
 		args["gameOn"] = False
-		print (timezone.now() - GAMEDATE).total_seconds()
+		args["gameOver"]  = False
 
 		if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
 			args["gameOn"] = True
+		elif GAMEEND < timezone.now():
+			args["gameOver"] = True
 
 		args["timeLeft"] = (GAMEEND - timezone.now()).total_seconds()
 
