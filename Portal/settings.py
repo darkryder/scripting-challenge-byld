@@ -19,8 +19,8 @@ import datetime
 
 """
 
-GAMEDATE = datetime.datetime(2013, 10, 4, 2, 0, 0)
-GAMEEND = datetime.datetime(2016, 10, 4, 4, 0, 0)
+GAMEDATE = datetime.datetime(2015, 10, 6, 17, 45, 0)
+GAMEEND = datetime.datetime(2015, 10, 6, 20, 00, 0)
 GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
 
 
@@ -38,7 +38,7 @@ SECRET_KEY = '@0qgp7@u^m5f(72lc31jri#6x28+825(cx7i)###joj4$k09u6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ["www.byld.iiitd.edu.in", "byld.iiitd.edu.in", "128.199.214.230", "127.0.0.1", "localhost", 'hackiiitd.in']
