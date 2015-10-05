@@ -1,3 +1,7 @@
+
+# MAY THE CODE BE WITH YOU
+
+
 from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
@@ -7,17 +11,21 @@ from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-from byld.models import Team, Answer, Question
+from byld.models import Team, Answer, Question, CompetetionTimeConfiguration
 
 from django import forms
 from nocaptcha_recaptcha.fields import NoReCaptchaField
-
-from Portal.settings import GAMEDATE, GAMEEND, GAMELENGTH
 
 import json
 import urllib2, urllib
 import requests
 import datetime
+
+timezone.localtime(timezone.now())
+
+GAMEDATE = CompetetionTimeConfiguration.objects.get().GAMEDATE
+GAMEEND = CompetetionTimeConfiguration.objects.get().GAMEEND
+GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
 
 class SignUpForm(forms.ModelForm):
 
@@ -125,8 +133,6 @@ def register(request):
 		if state == True:
 
 			if User.objects.filter(username = request.POST["username"]).exists():
-
-				form.add_error(None, "Team already Exists :(")
 				args['form'] = form
 				return render_to_response("register.html", args)
 
@@ -188,6 +194,7 @@ def updateScore(i):
 	return score
 
 def challenges(request):
+	print timezone.now()
 	args = {}
 	args.update(csrf(request))
 	args["error"] = "Please log in to continue"
@@ -196,14 +203,14 @@ def challenges(request):
 		form = HashForm()
 		team = Team.objects.get(team = request.user)
 
-		args["gameDate"] = GAMEDATE
+		args["gameDate"] = timezone.localtime(GAMEDATE)
 
 		args["gameOn"] = False
 
-		if GAMEDATE < datetime.datetime.now() and (datetime.datetime.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
+		if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
 			args["gameOn"] = True
 
-		args["timeLeft"] = (GAMEEND - datetime.datetime.now()).total_seconds()
+		args["timeLeft"] = (GAMEEND - timezone.now()).total_seconds()
 
 		if request.method == "POST":
 			request.POST._mutable = True	# hacks for life
@@ -213,7 +220,7 @@ def challenges(request):
 			if form.is_valid():
 				hashSubmitted = form.cleaned_data["hashField"]
 
-				match = Answer.objects.filter(hash=hashSubmitted.strip())
+				match = Answer.objects.filter(hash = hashSubmitted.strip())
 				if not match:
 					form.add_error("hashField", "Hash submitted is invalid")
 				else:
@@ -239,6 +246,6 @@ def challenges(request):
 		return HttpResponseRedirect("/", args)
 
 def secret_question(request):
-    if GAMEDATE < datetime.datetime.now() and (datetime.datetime.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
+    if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
         return render(request, "secret_question.html")
     else: return redirect('/')

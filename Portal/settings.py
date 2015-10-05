@@ -19,11 +19,6 @@ import datetime
 
 """
 
-GAMEDATE = datetime.datetime(2013, 10, 4, 2, 0, 0)
-GAMEEND = datetime.datetime(2016, 10, 4, 4, 0, 0)
-GAMELENGTH = (GAMEEND - GAMEDATE).total_seconds()
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR     = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -54,6 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'byld',
     'nocaptcha_recaptcha',
+    'solo',
 )
 
 MIDDLEWARE_CLASSES = (

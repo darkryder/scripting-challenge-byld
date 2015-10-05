@@ -2,6 +2,8 @@ from random import choice
 from string import ascii_letters
 
 from django.db import models
+from solo.models import SingletonModel
+
 from django.contrib.auth.models import User
 from django.utils import timezone
 
@@ -44,3 +46,15 @@ class Answer(models.Model):
 
 	def __unicode__(self):
 		return "(%s)<%s>;" % (self.description, self.hash)
+
+class CompetetionTimeConfiguration(SingletonModel):
+	GAMEDATE = models.DateTimeField(null = True, blank = True, default = timezone.now)
+	GAMEEND = models.DateTimeField(null = True, blank = True, default = timezone.now)
+
+	def __unicode__(self):
+		return "Competetion Time"
+
+
+
+
+
