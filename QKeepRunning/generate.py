@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 SALT = "Wohatbewu2nveh3@t3"
 
 def run():
-    for iteration in xrange(221):
+    for iteration in xrange(269):
         current = md5()
         current.update(SALT + str(iteration))
         current = current.hexdigest()
@@ -20,7 +20,7 @@ def run():
         print (iteration, current, fresh)
 
         template = render_to_string("QKeepRunning_template.html", {'next': fresh})
-        with open('QKeepRunning/' + fresh + '.html', 'w') as f:
+        with open('QKeepRunning/' + current + '.html', 'w') as f:
             f.write(template)
 
     print "Done"
