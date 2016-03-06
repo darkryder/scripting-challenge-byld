@@ -67,7 +67,7 @@ def home(request):
 	args.update(csrf(request))
 
 	if request.user.is_authenticated():
-		return HttpResponseRedirect("/challenges")
+		return HttpResponseRedirect("/scripting101/challenges")
 	else:
 		args["form"] = SignInForm()
 
@@ -81,7 +81,7 @@ def home(request):
 				if user is not None:
 					if user.is_active:
 						login(request, user)
-					return HttpResponseRedirect("/challenges")
+					return HttpResponseRedirect("/scripting101/challenges")
 
 				else:
 					form.add_error(None, "Wrong Team name / Password")
@@ -91,7 +91,7 @@ def home(request):
 
 def signout(request):
 	logout(request)
-	return HttpResponseRedirect("/")
+	return HttpResponseRedirect("/scripting101/")
 
 def register(request):
 	args = {}
@@ -99,7 +99,7 @@ def register(request):
 	args["reg"] = False
 
 	if request.user.is_authenticated():
-		return HttpResponseRedirect("/")
+		return HttpResponseRedirect("/scripting101/")
 
 	if request.method == "POST":
 
@@ -244,7 +244,7 @@ def challenges(request):
 		args['all_questions'] = Question.objects.all()
 		return render(request, "challenges.html", args)
 	else:
-		return HttpResponseRedirect("/", args)
+		return HttpResponseRedirect("/scripting101/", args)
 
 
 def secret_question(request):
@@ -255,4 +255,7 @@ def secret_question(request):
 	if GAMEDATE < timezone.now() and (timezone.now() - GAMEDATE).total_seconds() <  GAMELENGTH:
 		return render(request, "secret_question.html")
 	else:
-		return redirect('/')
+		return redirect('/scripting101/')
+
+def robots(request):
+	return HttpResponse("s3cr3t/hid33n/do_you_really_want_to_reach_here/wellKayThen/")

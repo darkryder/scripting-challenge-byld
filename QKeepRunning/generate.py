@@ -5,7 +5,7 @@ if __name__ == "__main__":
 from hashlib import md5
 from django.template.loader import render_to_string
 
-SALT = "Wohatbewu2nveh3@t3"
+SALT = "Wohatnve%$h3@t3"
 
 def run():
     for iteration in xrange(269):

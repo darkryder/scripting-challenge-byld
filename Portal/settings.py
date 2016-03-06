@@ -110,7 +110,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_URL = '/scripting101/static/'
 
 STATICFILES_DIRS = (
     (os.path.join(PROJECT_ROOT, 'static/')),
@@ -129,3 +129,5 @@ STATICFILES_FINDERS = {
 NORECAPTCHA_SITE_KEY   = "6LcbFg4TAAAAAA5aFMeGFmDf0q0NVBGKsI1Uqzmj"
 NORECAPTCHA_SECRET_KEY = "6LcbFg4TAAAAAITqrBWuwH2S9GOk_zO10quel8E1"
 
+USE_X_FORWARDED_HOST = True
+SITE_ID = "byld.iiitd.edu.in"

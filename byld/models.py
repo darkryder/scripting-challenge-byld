@@ -12,7 +12,7 @@ def make_auth():
 	things.extend(ascii_letters)
 
 	auth = []
-	for _ in xrange(64):
+	for _ in xrange(16):
 		auth.append(str(choice(things)))
 	return ''.join(auth)
 
